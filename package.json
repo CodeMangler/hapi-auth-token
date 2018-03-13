@@ -1,0 +1,30 @@
+{
+  "name": "hapi-auth-token",
+  "version": "0.0.1",
+  "description": "Token authentication for Hapi",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeMangler/hapi-auth-token.git"
+  },
+  "keywords": [
+    "hapi",
+    "auth",
+    "token",
+    "plugin",
+    "cookie",
+    "session"
+  ],
+  "author": "CodeMangler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeMangler/hapi-auth-token/issues"
+  },
+  "homepage": "https://github.com/CodeMangler/hapi-auth-token#readme",
+  "dependencies": {
+    "boom": "^7.2.0"
+  }
+}
