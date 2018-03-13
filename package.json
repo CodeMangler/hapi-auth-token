@@ -1,6 +1,6 @@
 {
   "name": "hapi-auth-token",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Token authentication for Hapi",
   "main": "lib/index.js",
   "scripts": {
