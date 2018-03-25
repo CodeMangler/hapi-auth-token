@@ -1,6 +1,6 @@
 {
   "name": "hapi-auth-token",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Token authentication for Hapi",
   "author": "CodeMangler <hsdpal@gmail.com>",
   "license": "ISC",
@@ -44,6 +44,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-mocha": "^0.0.0",
     "eslint-plugin-import": "^2.9.0",
+    "hapi": "^17.2.3",
     "mocha": "^5.0.4",
     "nyc": "^11.6.0"
   }
