@@ -1,0 +1,22 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "describe": true,
+    "it": true,
+    "expect": true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }
+    ]
+  }
+}
