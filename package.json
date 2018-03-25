@@ -1,6 +1,6 @@
 {
   "name": "hapi-auth-token",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "Token authentication for Hapi",
   "author": "CodeMangler <hsdpal@gmail.com>",
   "license": "ISC",
@@ -29,7 +29,9 @@
     "lint:fix": "eslint --fix .",
     "test": "NODE_ENV=test mocha --exit --require babel-core/register --require babel-polyfill test/**/*.test.js",
     "coverage": "nyc --reporter=text --reporter=lcov npm run test",
-    "build": "babel lib --out-dir dist"
+    "build": "babel lib --out-dir dist",
+    "clean": "rm -rf dist",
+    "prepublish": "npm run clean && npm run build"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
