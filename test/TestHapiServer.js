@@ -11,26 +11,23 @@ export default class TestHapiServer {
   }
 
   async _registerHapiTokenAuthenticationScheme() {
-    await this._server.register({
-      plugin: HapiAuthToken,
-      options: {
-        cookie: {
-          name: '__AUTH',
-          isSecure: false,
-        },
-        async validateToken(sessionToken) {
-          return !!sessionToken;
-        },
-        async authCredentials(sessionToken) {
-          return { id: sessionToken };
-        },
-      },
-    });
+    await this._server.register(HapiAuthToken);
   }
 
   async _configureAuth() {
     await this._registerHapiTokenAuthenticationScheme();
-    this._server.auth.strategy('token-auth-test', 'token-auth');
+    this._server.auth.strategy('token-auth-test', 'token-auth', {
+      cookie: {
+        name: '__AUTH',
+        isSecure: false,
+      },
+      async validateToken(sessionToken) {
+        return !!sessionToken;
+      },
+      async authCredentials(sessionToken) {
+        return { id: sessionToken };
+      },
+    });
     this._server.auth.default('token-auth-test');
   }
 
