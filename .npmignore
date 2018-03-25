@@ -40,3 +40,4 @@ test
 .babelrc
 .eslint*
 .editorconfig
+.travis.yml
