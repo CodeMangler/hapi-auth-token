@@ -27,7 +27,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "test": "NODE_ENV=test mocha --exit --require babel-core/register --require babel-polyfill test/**/*.test.js",
+    "test": "NODE_ENV=test mocha --exit --require babel-core/register --require babel-polyfill \"test/**/*.test.js\"",
     "coverage": "nyc --reporter=text --reporter=lcov npm run test",
     "build": "babel lib --out-dir dist",
     "clean": "rm -rf dist",
