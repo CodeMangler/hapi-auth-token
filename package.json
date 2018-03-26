@@ -1,6 +1,6 @@
 {
   "name": "hapi-auth-token",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Token authentication for Hapi",
   "author": "CodeMangler <hsdpal@gmail.com>",
   "license": "ISC",
