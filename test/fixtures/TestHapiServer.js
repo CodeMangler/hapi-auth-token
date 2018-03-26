@@ -1,4 +1,4 @@
-import HapiAuthToken from '../lib';
+import HapiAuthToken from '../../lib/index';
 
 export default class TestHapiServer {
   constructor(server) {

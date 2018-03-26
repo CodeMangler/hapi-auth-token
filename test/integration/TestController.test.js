@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import Hapi from 'hapi';
-import TestHapiServer from './TestHapiServer';
+import TestHapiServer from '../fixtures/TestHapiServer';
 
 describe('TestController', () => {
   let server = null;
