@@ -31,10 +31,12 @@ describe('TestController', () => {
       expect(response.statusCode).to.eq(401);
     });
 
-    it('works with a token in query parameter', async () => {
+    it('works with a token in the auth cookie', async () => {
+      const authCookieContent = Buffer.from(JSON.stringify({ sessionToken })).toString('base64');
       const response = await server.inject({
-        url: `/protected?token=${sessionToken}`,
+        url: '/protected',
         method: 'GET',
+        headers: { Cookie: `__AUTH=${authCookieContent};` },
       });
       expect(response.statusCode).to.eq(200);
       expect(response.payload).to.eq('Protected');
@@ -50,12 +52,10 @@ describe('TestController', () => {
       expect(response.payload).to.eq('Protected');
     });
 
-    it('works with a token in the auth cookie', async () => {
-      const authCookieContent = Buffer.from(JSON.stringify({ sessionToken })).toString('base64');
+    it('works with a token in query parameter', async () => {
       const response = await server.inject({
-        url: '/protected',
+        url: `/protected?token=${sessionToken}`,
         method: 'GET',
-        headers: { Cookie: `__AUTH=${authCookieContent};` },
       });
       expect(response.statusCode).to.eq(200);
       expect(response.payload).to.eq('Protected');
