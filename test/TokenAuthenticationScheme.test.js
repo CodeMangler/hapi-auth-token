@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
+import Boom from 'boom';
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
@@ -53,7 +54,8 @@ describe('TokenAuthenticationScheme', () => {
       },
     );
 
-    it('default options are used when explicit scheme or strategy options are not provided',
+    it(
+      'default options are used when explicit scheme or strategy options are not provided',
       async () => {
         const schemeOptions = { cookie: false, header: false };
         const strategyOptions = {};
@@ -62,7 +64,8 @@ describe('TokenAuthenticationScheme', () => {
         await scheme.authenticate({}, responseToolkit);
         expect(responseToolkit.authenticated).to.have.been
           .calledWith({ credentials: { id: null } });
-      });
+      },
+    );
   });
 
   describe('#authenticate', () => {
@@ -84,12 +87,22 @@ describe('TokenAuthenticationScheme', () => {
     it('does not mark the request authenticated when validateToken returns false', async () => {
       const strategyOptions = {
         validateToken: () => false,
-        authCredentials: () => null,
       };
       const scheme = new TokenAuthenticationScheme({ cookie: false, header: false });
       scheme.register(mockServer, strategyOptions);
       await scheme.authenticate({}, responseToolkit);
       expect(responseToolkit.authenticated).not.to.have.been.called;
+    });
+
+    it('returns unauthorized when validateToken returns false', async () => {
+      const strategyOptions = {
+        validateToken: () => false,
+      };
+      const scheme = new TokenAuthenticationScheme({ cookie: false, header: false });
+      scheme.register(mockServer, strategyOptions);
+      const authenticationResult = await scheme.authenticate({}, responseToolkit);
+      const expectedResult = Boom.unauthorized('Invalid credentials');
+      expect(JSON.stringify(authenticationResult)).to.deep.eq(JSON.stringify(expectedResult));
     });
   });
 });
