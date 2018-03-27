@@ -11,6 +11,12 @@ chai.use(sinonChai);
 describe('TokenAuthenticationScheme', () => {
   let mockServer = null;
   let responseToolkit = null;
+  const authentiationModeOptions = {
+    cookie: false,
+    header: false,
+    query: false,
+    payload: false,
+  };
 
   beforeEach(() => {
     mockServer = { state: () => {} };
@@ -20,8 +26,7 @@ describe('TokenAuthenticationScheme', () => {
   describe('#register', () => {
     it('strategy options override scheme options when present', async () => {
       const schemeOptions = {
-        cookie: false,
-        header: false,
+        ...authentiationModeOptions,
         validateToken: () => false,
         authCredentials: () => ({ userInfo: 'from-scheme' }),
       };
@@ -40,8 +45,7 @@ describe('TokenAuthenticationScheme', () => {
       'scheme options are used when there are no overriding options in strategy options',
       async () => {
         const schemeOptions = {
-          cookie: false,
-          header: false,
+          ...authentiationModeOptions,
           validateToken: () => true,
           authCredentials: () => ({ userInfo: 'from-scheme' }),
         };
@@ -66,6 +70,16 @@ describe('TokenAuthenticationScheme', () => {
           .calledWith({ credentials: { id: null } });
       },
     );
+
+    it('throws exception when invalid options do not match the expected schema', async () => {
+      const strategyOptions = {
+        invalidOption: 'foo',
+      };
+      const scheme = new TokenAuthenticationScheme(authentiationModeOptions);
+      expect(() => {
+        scheme.register(mockServer, strategyOptions);
+      }).to.throw('"invalidOption" is not allowed');
+    });
   });
 
   describe('#authenticate', () => {
@@ -76,7 +90,7 @@ describe('TokenAuthenticationScheme', () => {
           validateToken: () => true,
           authCredentials: () => ({ foo: 'bar' }),
         };
-        const scheme = new TokenAuthenticationScheme({ cookie: false, header: false });
+        const scheme = new TokenAuthenticationScheme(authentiationModeOptions);
         scheme.register(mockServer, strategyOptions);
         await scheme.authenticate({}, responseToolkit);
         expect(responseToolkit.authenticated).to.have.been
@@ -88,7 +102,7 @@ describe('TokenAuthenticationScheme', () => {
       const strategyOptions = {
         validateToken: () => false,
       };
-      const scheme = new TokenAuthenticationScheme({ cookie: false, header: false });
+      const scheme = new TokenAuthenticationScheme(authentiationModeOptions);
       scheme.register(mockServer, strategyOptions);
       await scheme.authenticate({}, responseToolkit);
       expect(responseToolkit.authenticated).not.to.have.been.called;
@@ -98,7 +112,7 @@ describe('TokenAuthenticationScheme', () => {
       const strategyOptions = {
         validateToken: () => false,
       };
-      const scheme = new TokenAuthenticationScheme({ cookie: false, header: false });
+      const scheme = new TokenAuthenticationScheme(authentiationModeOptions);
       scheme.register(mockServer, strategyOptions);
       const authenticationResult = await scheme.authenticate({}, responseToolkit);
       const expectedResult = Boom.unauthorized('Invalid credentials');
