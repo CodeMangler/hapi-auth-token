@@ -24,7 +24,7 @@ export default class TestHapiServer {
       async validateToken(sessionToken) {
         return !!sessionToken;
       },
-      async authCredentials(sessionToken) {
+      async buildAuthCredentials(sessionToken) {
         return { id: sessionToken };
       },
     });

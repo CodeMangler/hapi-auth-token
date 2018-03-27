@@ -28,11 +28,11 @@ describe('TokenAuthenticationScheme', () => {
       const schemeOptions = {
         ...authentiationModeOptions,
         validateToken: () => false,
-        authCredentials: () => ({ userInfo: 'from-scheme' }),
+        buildAuthCredentials: () => ({ userInfo: 'from-scheme' }),
       };
       const strategyOptions = {
         validateToken: () => true,
-        authCredentials: () => ({ userInfo: 'from-strategy' }),
+        buildAuthCredentials: () => ({ userInfo: 'from-strategy' }),
       };
       const scheme = new TokenAuthenticationScheme(schemeOptions);
       scheme.register(mockServer, strategyOptions);
@@ -47,7 +47,7 @@ describe('TokenAuthenticationScheme', () => {
         const schemeOptions = {
           ...authentiationModeOptions,
           validateToken: () => true,
-          authCredentials: () => ({ userInfo: 'from-scheme' }),
+          buildAuthCredentials: () => ({ userInfo: 'from-scheme' }),
         };
         const strategyOptions = {};
         const scheme = new TokenAuthenticationScheme(schemeOptions);
@@ -84,11 +84,11 @@ describe('TokenAuthenticationScheme', () => {
 
   describe('#authenticate', () => {
     it(
-      'marks the request authenticated by setting credentials returned by authCredentials when validateToken returns true',
+      'marks the request authenticated by setting credentials returned by buildAuthCredentials when validateToken returns true',
       async () => {
         const strategyOptions = {
           validateToken: () => true,
-          authCredentials: () => ({ foo: 'bar' }),
+          buildAuthCredentials: () => ({ foo: 'bar' }),
         };
         const scheme = new TokenAuthenticationScheme(authentiationModeOptions);
         scheme.register(mockServer, strategyOptions);
