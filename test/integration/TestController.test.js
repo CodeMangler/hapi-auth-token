@@ -4,7 +4,7 @@ import TestHapiServer from '../fixtures/TestHapiServer';
 
 describe('TestController', () => {
   let server = null;
-  const sessionToken = 'a-session-token';
+  const authToken = 'a-session-token';
 
   beforeEach(async () => {
     server = new Hapi.Server();
@@ -32,7 +32,7 @@ describe('TestController', () => {
     });
 
     it('works with a token in the auth cookie', async () => {
-      const authCookieContent = Buffer.from(JSON.stringify({ sessionToken })).toString('base64');
+      const authCookieContent = Buffer.from(JSON.stringify({ authToken })).toString('base64');
       const response = await server.inject({
         url: '/protected',
         method: 'GET',
@@ -46,7 +46,7 @@ describe('TestController', () => {
       const response = await server.inject({
         url: '/protected',
         method: 'GET',
-        headers: { Authorization: `Token ${sessionToken}` },
+        headers: { Authorization: `Token ${authToken}` },
       });
       expect(response.statusCode).to.eq(200);
       expect(response.payload).to.eq('Protected');
@@ -54,7 +54,7 @@ describe('TestController', () => {
 
     it('works with a token in query parameter', async () => {
       const response = await server.inject({
-        url: `/protected?token=${sessionToken}`,
+        url: `/protected?token=${authToken}`,
         method: 'GET',
       });
       expect(response.statusCode).to.eq(200);

@@ -44,16 +44,16 @@ async function configureAuth() {
       name: 'authToken', // Name of the query parameter to read the auth token from
     },
 
-    async validateToken(sessionToken) {
+    async validateToken(authToken) {
       // Verify whether the token is valid, for example, against a list of existing tokens like below
-      return models.UserToken.isValid(sessionToken);
+      return models.UserToken.isValid(authToken);
     },
 
-    async buildAuthCredentials(sessionToken) {
+    async buildAuthCredentials(authToken) {
       // Identify user based on the token information
       // Return a credentials object based on the identified user information
       // The object returned from this method will be accessible as `request.auth.credentials` in authenticated handlers
-      const user = await models.User.byAuthToken(sessionToken);
+      const user = await models.User.byAuthToken(authToken);
       return { id: user.id, profile: user.profileId };
     },
   };

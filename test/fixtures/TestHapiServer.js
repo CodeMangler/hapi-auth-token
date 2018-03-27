@@ -21,11 +21,11 @@ export default class TestHapiServer {
         name: '__AUTH',
         isSecure: false,
       },
-      async validateToken(sessionToken) {
-        return !!sessionToken;
+      async validateToken(authToken) {
+        return !!authToken;
       },
-      async buildAuthCredentials(sessionToken) {
-        return { id: sessionToken };
+      async buildAuthCredentials(authToken) {
+        return { id: authToken };
       },
     });
     this._server.auth.default('token-auth-test');

@@ -6,8 +6,8 @@ import HapiRequestToken from '../lib/HapiRequestToken';
 describe('HapiRequestToken', () => {
   describe('#value', () => {
     describe('from cookie', () => {
-      it('is sessionToken in the specified cookie when available', () => {
-        const requestStub = { state: { __AUTH: { sessionToken: 'a-token' } } };
+      it('is authToken in the specified cookie when available', () => {
+        const requestStub = { state: { __AUTH: { authToken: 'a-token' } } };
         const token = new HapiRequestToken(requestStub, {
           cookie: { name: '__AUTH' },
           header: false,
@@ -18,7 +18,7 @@ describe('HapiRequestToken', () => {
       });
 
       it('defaults to the "__TOKEN_AUTH" cookie', () => {
-        const requestStub = { state: { __TOKEN_AUTH: { sessionToken: 'a-token' } } };
+        const requestStub = { state: { __TOKEN_AUTH: { authToken: 'a-token' } } };
         const token = new HapiRequestToken(requestStub, {
           header: false,
           query: false,
