@@ -20,6 +20,10 @@ OR
 
 `yarn add hapi-auth-token`
 
+## Example Applications
+- [hapi-auth-token-db-example](https://github.com/CodeMangler/hapi-auth-token-db-example): Using `hapi-auth-token` to authenticate users against a SQL DB.
+- [hapi-auth-token-jwt-example](https://github.com/CodeMangler/hapi-auth-token-jwt-example): Using `hapi-auth-token` with JWT tokens.
+
 ## Usage
 Follow these steps to use this plugin in your Hapi application.
 
@@ -108,8 +112,6 @@ async function configureAuth() {
 
 configureAuth();
 ```
-
-See [hapi-auth-token-db-example](https://github.com/CodeMangler/hapi-auth-token-db-example) for an example of how the plugin can be used for DB user authentication.
 
 ## API
 The plugin can be configured during plugin registration, and/or during auth strategy registration.
