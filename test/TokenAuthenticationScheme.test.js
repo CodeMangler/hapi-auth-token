@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-import Boom from 'boom';
+import Boom from '@hapi/boom';
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
