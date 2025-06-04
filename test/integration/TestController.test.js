@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Hapi from 'hapi';
+import Hapi from '@hapi/hapi';
 import TestHapiServer from '../fixtures/TestHapiServer';
 
 describe('TestController', () => {
